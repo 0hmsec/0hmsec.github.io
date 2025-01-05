@@ -14,6 +14,8 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
+  white-space: pre;
+  padding-left: 1rem; /*Left margin for code block*/;
   padding-bottom: 0.75rem;
 
   @at-root figure#{&} {
@@ -24,7 +26,7 @@
     margin-bottom: 0;
     font-size: v.$code-font-size;
     line-height: 1.4rem;
-    word-wrap: normal; /* Fixed Safari overflow-x */
+    word-wrap: normal; /* Fixed Safari overflow-x */;
   }
 
   table {
@@ -121,6 +123,7 @@ div[class^='language-'] {
       @include mx.ml-mr(0);
 
       border-radius: v.$radius-lg;
+      
     }
   }
 

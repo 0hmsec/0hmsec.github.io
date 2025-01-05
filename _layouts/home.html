@@ -5,6 +5,34 @@ refactor: true
 
 {% include lang.html %}
 
+<!-- Welcome message -->
+
+<h1>はじめに</h1>
+<h2>0hmsecへようこそ!</h2>
+
+<p>
+私はサイバーセキュリティ、特にペネトレーションテストに情熱を持つインド人です。OSCP+の資格を取得しており、このブログではサイバーセキュリティに関する知識やCTFの解説を共有しています。
+</p>
+<p style="color: #868686">
+I’m an Indian passionate about cybersecurity, especially penetration testing. I hold the OSCP+ certification and started this blog to share knowledge on cybersecurity topics, including CTF solutions and tips.
+</p>
+
+<p>
+日本に興味があるため、英語と日本語の両方で投稿する予定です。日本語の間違いがあればご容赦ください。また、建設的なフィードバックをいただけると嬉しいです！
+</p>
+<p style="color: #868686">
+As someone interested in Japan, I’ll be writing posts in both English and Japanese. Please forgive any mistakes in my Japanese—I’d greatly appreciate any constructive feedback!
+</p>
+
+<p>
+訪問していただき、ありがとうございます。このブログをお楽しみください！
+</p>
+<p style="color: #868686">
+Thank you for visiting, and I hope you find the content helpful and engaging.
+</p>
+
+<!-- End of welcome message -->
+
 {% assign all_pinned = site.posts | where: 'pin', 'true' %}
 {% assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
 
