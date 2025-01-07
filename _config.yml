@@ -16,7 +16,7 @@ timezone: Asia/Tokyo
 
 title: 0hmsec # the main title
 
-tagline: 安全なサイバー未来へ # it will display as the subtitle
+tagline: 安全なサイバー未来へ (Towards a safer cyber future) # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   0hmsecへようこそ！ここはサイバーセキュリティに関するあらゆる情報をお届けするブログです。CTFの詳細な解説、ペネトレーションテストの技術、Active Directoryのエクスプロイト、実践的なヒントとテクニック、そして業界最新ニュースなどを提供します。初心者から経験豊富なプロフェッショナルまで、すべての方に役立つ実践的なチュートリアルや深掘りガイドをお楽しみいただけます。エシカルハッキング、脆弱性評価、その他最先端の開発情報を把握し、スキルを磨きましょう。コミュニティに参加して、サイバーセキュリティの知識を深め、新たな脅威に備えましょう。Welcome to 0hmsec, your go-to source for everything cybersecurity. Dive into detailed CTF writeups, penetration testing techniques, Active Directory exploitation, expert tips and tricks, and the latest industry news. Our content is designed for everyone from beginners to seasoned professionals, offering practical tutorials and in-depth guides to sharpen your skills. Stay informed on cutting-edge developments in ethical hacking, vulnerability assessment, and more. Join our community to boost your cybersecurity expertise and stay ahead of emerging threats.
