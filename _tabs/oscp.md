@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-title: "OSCP+ JOURNEY"
+title: "OSCP+の旅 (OSCP+ Journey)"
 layout: post
 icon: fas fa-solid fa-dragon
 date: 2025-01-01 00:45:00 +0900
@@ -9,17 +9,21 @@ toc: true
 order: 6
 ---
 
-## How I passed the OSCP+ in just four months without metasploit!
+## どのようにしてOSCP+をMetasploitを使わずに合格されたのですか？
+<div class="h4 english">How I passed the OSCP+ in just four months without metasploit!</div>
 
 ![OSCP+ Badge](/assets/img/oscp/oscp-2.png){: .center }
 _OSCP+_
 
->Trust the process and keep trying harder...
+>過程を信じて頑張り続けること。
 {: .prompt-info }
 
 Thank you for stopping by to read about my experience with the OSCP+ exam. Whether you're here as an aspiring penetration tester, a seasoned professional, or someone simply curious about what this journey entails, I’m thrilled to share my insights with you.
 
 The OSCP+ exam is more than just a test; it’s a challenge that pushes you to your limits, builds your resilience, and deepens your understanding of cybersecurity concepts. In this post, I’ll walk you through the highs and lows, the lessons learned, and the resources that helped me navigate this rigorous assessment.
+
+>Trust the process and keep trying harder...
+{: .prompt-info }
 
 ### OSCP+ Exam Structure
 

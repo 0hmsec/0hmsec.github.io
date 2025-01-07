@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-title: "OffSec Exam-like boxes"
+title: "OffSec 試験のような CTF"
 layout: page
 icon: fas fa-solid fa-award
 date: 2025-01-02 00:45:00 +0900
