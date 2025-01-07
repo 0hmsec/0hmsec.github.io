@@ -2,6 +2,7 @@
 # the default layout is 'page'
 icon: fas fa-info-circle
 order: 4
+title: アバウト / ABOUT
 ---
 
 Welcome to my blog.
@@ -10,7 +11,8 @@ Welcome to my blog.
 
 I want to document my journey into the field of Cyber Security and give back to the wonderful community out there.
 
-I am an OSCP+ certified, one of many certifications that are yet to come.
+#### Certifications
+- Offensive Security Certified Professional+ (OSCP +)
 
 I will be posting writeups for retired CTF machines that are on Hack the Box, PG Practice etc., So, stay tuned.
 

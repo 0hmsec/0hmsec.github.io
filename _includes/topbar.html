@@ -10,19 +10,19 @@
 
       {% if paths.size == 0 or page.layout == 'home' %}
         <!-- index page -->
-        <span>{{ site.data.locales[include.lang].tabs.home | capitalize }}</span>
+        <span>{{ site.data.locales[include.lang].tabs.home }}</span>
 
       {% else %}
         {% for item in paths %}
           {% if forloop.first %}
             <span>
               <a href="{{ '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs.home | capitalize -}}
+                {{- site.data.locales[include.lang].tabs.home }}
               </a>
             </span>
 
           {% elsif forloop.last %}
-            {% if page.collection == 'tabs' %}
+            {% if page.collection == 'tabs' or page.layout == 'blogposts' %}
               <span>{{ site.data.locales[include.lang].tabs[item] | default: page.title }}</span>
             {% else %}
               <span>{{ page.title }}</span>
@@ -35,6 +35,7 @@
               </a>
             </span>
           {% endif %}
+
         {% endfor %}
       {% endif %}
     </nav>
