@@ -68,7 +68,7 @@
 
     {% for entry in site.data.contact %}
       {% case entry.type %}
-        {% when 'github', 'twitter' %}
+        {% when 'twitter' %}
           {%- capture url -%}
             https://{{ entry.type }}.com/{{ site[entry.type].username }}
           {%- endcapture -%}
@@ -106,6 +106,9 @@
         </a>
       {% endif %}
     {% endfor %}
+    <a href="https://app.hackthebox.com/profile/679898" target="_blank">
+      <img src="/assets/img/hackthebox.webp" />
+    </a>
   </div>
   <!-- .sidebar-bottom -->
 </aside>
