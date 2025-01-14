@@ -99,15 +99,15 @@
   --timeline-year-dot-color: var(--timeline-color);
 
   /* Code highlight colors */
-  --language-border-color: #2d2d2d;
-  --highlight-bg-color: #151515;
-  --highlighter-rouge-color: #c9def1;
+  --language-border-color: #2c2c2c;
+  --highlight-bg-color: #390E35;
+  --highlighter-rouge-color: #ffffff;
   --highlight-lineno-color: #808080;
-  --inline-code-bg: rgba(255, 255, 255, 0.05);
-  --code-color: #b0b0b0;
-  --code-header-text-color: #6a6a6a;
-  --code-header-muted-color: #353535;
-  --code-header-icon-color: #565656;
+  --inline-code-bg: #6e2d67;
+  --code-color: #ffffff;
+  --code-header-text-color: #c5c5c5;
+  --code-header-muted-color: #6e2d67;
+  --code-header-icon-color: #c5c5c5;
   --clipboard-checked-color: #2bcc2b;
   --filepath-text-color: #cacaca;
 
@@ -171,7 +171,7 @@
   .highlight,
   .highlight .w {
     color: #d0d0d0;
-    background-color: #151515;
+    background-color: #390E35;
   }
 
   .highlight .err {
