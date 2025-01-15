@@ -566,7 +566,7 @@ nt authority\system
 {: .prompt-tip }
 
 ```bash
-c:\Users\Administrator\Desktop> type root.txt                
+c:\Users\Administrator\Desktop> type root.txt
 6a26f0e7a94da.................
 
 c:\Users\Administrator\Desktop> whoami
