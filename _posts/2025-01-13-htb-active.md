@@ -557,7 +557,7 @@ nt authority\system
 
 #### ROOT flag
 
-とうとうroot.txtフラッグも見つかりましたね。万歳!万歳!万歳!
+とうとうroot.txtフラッグも見つかりましたね。
 
 <p class="english">Thus, we have the `root.txt` flag.</p>
 
@@ -591,3 +591,5 @@ Tunnel adapter isatap.{73A3C9B3-56C9-47B6-9326-5C0FFB1A8451}:
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
 ```
+
+万歳!万歳!万歳!
