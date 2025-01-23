@@ -15,9 +15,11 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  white-space: pre !important;
-  /*padding-left: 0.75rem; /*Left margin for code block*/
-  /*padding-bottom: 0.75rem;*/
+  display: grid;
+  grid-template-columns: 1fr;
+  white-space: inherit;
+  padding-left: 0.75rem; /*Left margin for code block*/
+  padding-bottom: 0.75rem;
 
   @at-root figure#{&} {
     @extend %code-snippet-bg;
