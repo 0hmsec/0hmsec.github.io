@@ -14,7 +14,7 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  white-space: pre;
+  white-space: pre !important;
   padding-left: 1rem; /*Left margin for code block*/;
   padding-bottom: 0.75rem;
 
@@ -26,7 +26,7 @@
     margin-bottom: 0;
     font-size: v.$code-font-size;
     line-height: 1.4rem;
-    word-wrap:inherit; /* Fixed Safari overflow-x */;
+    word-wrap: pre; /* Fixed Safari overflow-x */;
   }
 
   table {
