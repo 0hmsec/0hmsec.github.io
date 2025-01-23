@@ -15,9 +15,7 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  white-space: inherit;
+  white-space: pre;
   padding-left: 0.75rem; /*Left margin for code block*/
   padding-bottom: 0.75rem;
 
@@ -160,7 +158,6 @@ div[class^='language-'] {
   .highlight {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    white-space: pre !important;
   }
 }
 
