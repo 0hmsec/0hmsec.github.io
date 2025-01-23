@@ -6,7 +6,6 @@
 .highlighter-rouge {
   color: var(--highlighter-rouge-color);
   margin-top: 0.5rem;
-  white-space: pre;
   margin-bottom: 1.2em; /* Override BS Inline-code style */
 }
 
@@ -15,7 +14,7 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  white-space: pre important;
+  white-space: pre !important;
   word-wrap: normal;
   padding-left: 0.75rem; /*Left margin for code block*/
   padding-bottom: 0.75rem;
