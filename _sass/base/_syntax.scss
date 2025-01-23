@@ -27,7 +27,7 @@
     margin-bottom: 0;
     font-size: v.$code-font-size;
     line-height: 1.4rem;
-    word-wrap: pre; /* Fixed Safari overflow-x */;
+    word-wrap: normal; /* Fixed Safari overflow-x */;
   }
 
   table {
