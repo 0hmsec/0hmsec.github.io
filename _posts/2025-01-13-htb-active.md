@@ -53,7 +53,7 @@ MITRE ATT&CKに照らした攻略手順の概要は以下の通りです。
 
 <span class="english">First, I will use `nmap` to run the port scan against all the 65535 ports to find the open ones.</span>
 
-```text
+```bash
 0hmsec@kali:~$ nmap -p- --min-rate 10000 10.10.10.100
 ```
 ```bash

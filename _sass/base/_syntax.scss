@@ -15,7 +15,6 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  white-space: pre !important;
   padding-left: 0.75rem; /*Left margin for code block*/
   padding-bottom: 0.75rem;
 
@@ -28,8 +27,6 @@
     font-size: v.$code-font-size;
     line-height: 1.4rem;
     word-wrap: normal; /* Fixed Safari overflow-x */;
-    white-space: pre !important;
-    
   }
 
   table {
@@ -47,7 +44,6 @@
       pre {
         overflow: visible; /* Fixed iOS safari overflow-x */
         word-break: normal; /* Fixed iOS safari linenos code break */
-        white-space: pre !important;
       }
     }
   }
