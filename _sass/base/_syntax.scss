@@ -17,7 +17,7 @@
   overflow: auto;
   white-space: pre !important;
   word-wrap: normal;
-  padding-left: 1rem; /*Left margin for code block*/;
+  padding-left: 1rem; /*Left margin for code block*/
   padding-bottom: 0.75rem;
 
   @at-root figure#{&} {
@@ -28,7 +28,7 @@
     margin-bottom: 0;
     font-size: v.$code-font-size;
     line-height: 1.4rem;
-    /*word-wrap: normal;  Fixed Safari overflow-x */;
+    word-wrap: normal; /* Fixed Safari overflow-x */;
     white-space: pre;
   }
 
