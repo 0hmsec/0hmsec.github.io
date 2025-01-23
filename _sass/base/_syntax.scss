@@ -14,8 +14,7 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  white-space: pre !important;
-  word-wrap: break-word;
+  
   padding-left: 0.75rem; /*Left margin for code block*/
   padding-bottom: 0.75rem;
 
@@ -28,6 +27,7 @@
     font-size: v.$code-font-size;
     line-height: 1.4rem;
     word-wrap: normal; /* Fixed Safari overflow-x */;
+    
   }
 
   table {
@@ -65,6 +65,7 @@ code {
   -ms-hyphens: none;
   hyphens: none;
   color: var(--code-color);
+  white-space: pre !important;
 
   &.highlighter-rouge {
     font-size: v.$code-font-size;
