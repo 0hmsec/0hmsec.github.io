@@ -16,8 +16,7 @@
   overflow: auto;
   white-space: pre !important;
   word-wrap: normal;
-  padding-left: 1rem; /*Left margin for code block*/;
-  padding-bottom: 0.75rem;
+
 
   @at-root figure#{&} {
     @extend %code-snippet-bg;
