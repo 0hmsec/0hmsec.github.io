@@ -15,8 +15,9 @@
   @extend %code-snippet-bg;
 
   overflow: auto;
-  padding-left: 0.75rem; /*Left margin for code block*/
-  padding-bottom: 0.75rem;
+  white-space: pre !important;
+  /*padding-left: 0.75rem; /*Left margin for code block*/
+  /*padding-bottom: 0.75rem;*/
 
   @at-root figure#{&} {
     @extend %code-snippet-bg;
@@ -157,6 +158,7 @@ div[class^='language-'] {
   .highlight {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    white-space: pre !important;
   }
 }
 
