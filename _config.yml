@@ -44,6 +44,19 @@ social:
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
 
+
+# Polyglot configuration
+plugins:
+  - jekyll-polyglot
+
+languages: ["ja", "en"]
+default_lang: "ja"
+exclude_from_localization: ["assets/css", "assets/js", "assets/img"]
+parallel_localization: true
+lang_from_path: true
+url: https://polyglot.untra.io
+
+
 # Site Verification Settings
 webmaster_verifications:
   google: # fill in your Google verification code
@@ -196,6 +209,7 @@ defaults:
 
 sass:
   style: compressed
+  sourcemap: never # In Jekyll 4.0 , SCSS source maps will generate improperly due to how Polyglot operates
 
 compress_html:
   clippings: all
@@ -225,3 +239,4 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+

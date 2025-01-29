@@ -3,6 +3,7 @@
 icon: fas fa-info-circle
 order: 4
 title: アバウト / ABOUT
+lang: ja
 ---
 
 #### 0hmsecブログへようこそ！

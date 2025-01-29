@@ -7,6 +7,7 @@ date: 2025-01-01 00:45:00 +0900
 toc: true
 #description: "My journey of obtaining one of the most sort after certifications in the field of Cyber Security, the OSCP+."
 order: 6
+lang: ja
 ---
 
 ## どのようにしてOSCP+をMetasploitを使わずに合格されたのですか？

@@ -6,6 +6,7 @@ icon: fas fa-solid fa-award
 date: 2025-01-02 00:45:00 +0900
 toc: true
 order: 5
+lang: ja
 ---
 
 [TJ Null](https://x.com/TJ_Null?mx=2) は、OSCP、OSWE、OSEP の練習に使用できるマシンの[リスト](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/pubhtml#)を作って管理しています。このページでは、リストを随時更新し、各項目を公開した解決へリンクさせていただきます。

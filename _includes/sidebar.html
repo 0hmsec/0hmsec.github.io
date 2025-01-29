@@ -55,6 +55,28 @@
     </ul>
   </nav>
 
+  <div class="sidebar-lang-selector d-flex flex-wrap  align-items-center w-100">
+    {%- for lang in site.languages -%}
+      {%- if site.default_lang == lang -%}
+        <a ferh="{{ page.url }}" style="display:inline-block; white-space:nowrap;">
+          {%- if lang == site.active_lang -%}
+            <b style="color: white;">日本語</b>
+          {%- else -%}
+            日本語
+          {%- endif -%}
+        </a>
+      {%- else if site.active_lang == lang -%}
+        <a href="/{{ lang }}{{ page.url }}" style="display:inline-block; white-space:nowrap;">
+          {%- if lang == site.active_lang -%}
+            <b style="color: white;">ENGLISH</b>
+          {%- else -%}
+            ENGLISH
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
@@ -65,7 +87,7 @@
         <span class="icon-border"></span>
       {% endif %}
     {% endunless %}
-
+    
     {% for entry in site.data.contact %}
       {% case entry.type %}
         {% when 'twitter' %}
