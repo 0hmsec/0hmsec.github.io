@@ -17,13 +17,13 @@
       <em class="fst-normal">{{ site.social.name }}</em>.
     {% endif %}
 
-    {% if site.data.locales[include.lang].copyright.brief %}
+    {% if site.data.locales[site.active_lang].copyright.brief %}
       <span
         data-bs-toggle="tooltip"
         data-bs-placement="top"
-        title="{{ site.data.locales[include.lang].copyright.verbose }}"
+        title="{{ site.data.locales[site.active_lang].copyright.verbose }}"
       >
-        {{- site.data.locales[include.lang].copyright.brief -}}
+        {{- site.data.locales[site.active_lang].copyright.brief -}}
       </span>
     {% endif %}
   </p>
@@ -44,6 +44,6 @@
       >Chirpy</a>
     {%- endcapture -%}
 
-    {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
+    {{ site.data.locales[site.active_lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
   </p>
 </footer>

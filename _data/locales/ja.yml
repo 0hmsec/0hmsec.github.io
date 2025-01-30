@@ -3,30 +3,30 @@
 # ----- Commons label -----
 
 layout:
-  post: 記事 (Post)
-  category: カテゴリー (Categories)
-  tag: タグ (Tag)
+  post: 記事
+  category: カテゴリー
+  tag: タグ
 
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  home: ホーム (HOME)
-  blogposts: ブログ投稿 (BLOG POSTS)
-  categories: カテゴリー (CATEGORIES)
-  tags: タグ (TAGS)
+  home: ホーム
+  # blogposts: ブログ投稿
+  categories: カテゴリー
+  tags: タグ
   archives: ARCHIVES
-  about: アバウト (ABOUT)
+  about: アバウト
 
 # Search bar and results
 search:
-  hint: 検索 (search)
-  cancel: キャンセル (Cancel)
-  no_results: おっと！結果が見つかりません。(Oops! No results found.)
+  hint: 検索
+  cancel: キャンセル
+  no_results: おっと！結果が見つかりません。
 
 panel:
-  lastmod: 最近更新 (Recently Updated)
-  trending_tags: 人気のタグ (Trending Tags)
-  toc: 目次 (Contents)
+  lastmod: 最近更新
+  trending_tags: 人気のタグ
+  toc: 目次
 
 copyright:
   # Shown at the bottom of the post
@@ -34,12 +34,9 @@ copyright:
     template: この投稿は著者によって :LICENSE_NAME ライセンスで提供されています。
     name: CC BY 4.0
     link: https://creativecommons.org/licenses/by/4.0/
-
   # Displayed in the footer
   brief: 一部の権利を保有しています。
-  verbose: >-
-    特に記載がない限り、このサイトのブログ投稿は、Creative Commons Attribution 4.0 International (CC BY 4.0) License
-    に基づいて著者によってライセンスされています。
+  verbose: 特に記載がない限り、このサイトのブログ投稿は、Creative Commons Attribution 4.0 International (CC BY 4.0) License に基づいて著者によってライセンスされています。
 
 meta: このサイトは :PLATFORM 用の :THEME テーマを使用しています。
 

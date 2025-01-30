@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-title: "OSCP+の旅 (OSCP+ Journey)"
+title: "OSCP+ Journey"
 layout: post
 icon: fas fa-solid fa-dragon
 date: 2025-01-01 00:45:00 +0900
