@@ -57,15 +57,15 @@
 
   <div class="sidebar-lang-selector d-flex flex-wrap  align-items-center w-100">
     {%- for lang in site.languages -%}
-      {%- if site.default_lang == lang -%}
-        <a href="{{ page.url }}" style="display:inline-block; white-space:nowrap;">
+      {%- if lang == site.default_lang -%}
+        <a ferh="{{ page.url }}" style="display:inline-block; white-space:nowrap;">
           {%- if lang == site.active_lang -%}
             <b style="color: white;">日本語</b>
           {%- else -%}
             日本語
           {%- endif -%}
         </a>
-      {%- else if site.active_lang == lang -%}
+      {%- else -%}
         <a href="/{{ lang }}{{ page.url }}" style="display:inline-block; white-space:nowrap;">
           {%- if lang == site.active_lang -%}
             <b style="color: white;">ENGLISH</b>
