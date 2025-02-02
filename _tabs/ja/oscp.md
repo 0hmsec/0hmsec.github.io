@@ -11,7 +11,6 @@ lang: ja
 ---
 
 ## どのようにしてOSCP+をMetasploitを使わずに合格されたのですか？
-<div class="h4 english">How I passed the OSCP+ in just four months without metasploit!</div>
 
 ![OSCP+ Badge](/assets/img/oscp/oscp-2.png){: .center }
 _OSCP+_

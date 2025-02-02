@@ -5,19 +5,15 @@ layout: post
 icon: fas fa-solid fa-dragon
 date: 2025-01-01 00:45:00 +0900
 toc: true
-#description: "My journey of obtaining one of the most sort after certifications in the field of Cyber Security, the OSCP+."
+description: "My journey of obtaining one of the most sort after certifications in the field of Cyber Security, the OSCP+."
 order: 6
 lang: en
 ---
 
-## どのようにしてOSCP+をMetasploitを使わずに合格されたのですか？
-<div class="h4 english">How I passed the OSCP+ in just four months without metasploit!</div>
+## How I passed the OSCP+ in just four months without metasploit!
 
 ![OSCP+ Badge](/assets/img/oscp/oscp-2.png){: .center }
 _OSCP+_
-
->過程を信じて頑張り続けること。
-{: .prompt-info }
 
 Thank you for stopping by to read about my experience with the OSCP+ exam. Whether you're here as an aspiring penetration tester, a seasoned professional, or someone simply curious about what this journey entails, I’m thrilled to share my insights with you.
 

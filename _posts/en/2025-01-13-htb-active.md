@@ -2,7 +2,7 @@
 title: HTB - Active
 date: 2025-01-01 17:30:00 +0900
 categories: [Hack The Box, Active Directory]
-tags: [htb-active, hackthebox, active-directory, ctf, nmap, smb, smbclient, smbmap, gpp-password, gpp-decrypt, CVE-2014-1812, kerberoast, hashcat, john, impacket-getuserspns, impacket-psexec]     # TAG names should always be lowercase
+tags: [nmap, smb, smbclient, smbmap, gpp-password, gpp-decrypt, cve-2014-1812, kerberoast, hashcat, john, impacket-getuserspns, impacket-psexec, htb-active, hackthebox, active-directory, ctf]     # TAG names should always be lowercase
 published: true
 description: Active was an easy to medium difficulty Windows machine, which featured two very prevalent techniques to gain privileges within an Active Directory environment. Eventhough the box was released in 2018, we were still able to learn a lot about SMB enumeration, Group Policy Preference and Kerberoasting.
 lang: en
@@ -11,10 +11,11 @@ lang: en
 ![Active](/assets/img/posts/htb-active/Active.png){: .center }
 _Active Machine info card_
 
-##### Machine info table
+#### Machine info table
 
+| [Play Active on Hack The Box](https://app.hackthebox.com/machines/148)  |
 | Difficulty         | Easy    |
-| OS                         | Windows       |
+| OS                 | Windows       |
 | Released Date      | 29-07-2018  |
 | Machine State| Retired |
 
@@ -136,7 +137,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 71.31 seconds
 ```
 
->Since the ports 53 (DNS), 88 (Kerberos) and LDAP (389) are open, it is possibility that this machine might a domain controller.
+>Since the ports 53 (DNS), 88 (Kerberos) and LDAP (389) are open, it is a possibility that this machine might an Active Directory Domain Controller.
 {: .prompt-tip }
 
 ##### UDP Port Scan

@@ -2,7 +2,7 @@
 title: HTB - Active
 date: 2025-01-01 17:30:00 +0900
 categories: [Hack The Box, Active Directory]
-tags: [htb-active, hackthebox, active-directory, ctf, nmap, smb, smbclient, smbmap, gpp-password, gpp-decrypt, CVE-2014-1812, kerberoast, hashcat, john, impacket-getuserspns, impacket-psexec]     # TAG names should always be lowercase
+tags: [nmap, smb, smbclient, smbmap, gpp-password, gpp-decrypt, cve-2014-1812, kerberoast, hashcat, john, impacket-getuserspns, impacket-psexec, htb-active, hackthebox, active-directory, ctf]     # TAG names should always be lowercase
 published: true
 description: 「Active」というWindowsマシンは難易度が簡単から中程度であり、アクティブ・ディレクトリ環境で２つの非常に一般的な手法を特徴されていました。このマシンは2018年に公開されていましたが、解決することで、SMB EnumerationまたはGroup Policy Preferences (GPP)とKerberoastingについて多くの事が勉強になりました。
 lang: ja
@@ -13,7 +13,7 @@ lang: ja
 ![Active](/assets/img/posts/htb-active/Active.png){: .center }
 _Active Machine info card_
 
-##### マシン情報テーブル
+#### マシン情報テーブル
 
 | 難易度         | 簡単   |
 | OS   | Windows       |

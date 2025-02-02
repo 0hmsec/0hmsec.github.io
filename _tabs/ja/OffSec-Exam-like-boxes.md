@@ -11,36 +11,33 @@ lang: ja
 
 [TJ Null](https://x.com/TJ_Null?mx=2) は、OSCP、OSWE、OSEP の練習に使用できるマシンの[リスト](https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/pubhtml#)を作って管理しています。このページでは、リストを随時更新し、各項目を公開した解決へリンクさせていただきます。
 
-<p class="english"><a href="https://x.com/TJ_Null?mx=2">TJ Null</a> has been maintaining a <a href="https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/pubhtml#">list of machines</a> that can be used to practice for OSCP, OSWE and OSEP. On this page, I’ll keep the list updated and link each item to its respective walkthrough as I release them.</p>
-
 # OSCP (Offensive Security Certified Professional)
 
 ### OSCP+ (PEN-200 最新バージョン)
-<h5 class="english">OSCP+ (PEN-200 Latest Version)</h5>
 
 #### Hack The Box
 
-| Active Directory                  | Linux       | Windows       |
-| :-------------------------------- | :---------- | :------------ |
-| <a href="/htb-active/">Active</a> | Busqueda    | Servmon       |
-| Forest                            | UpDown      | Support       |
-| Sauna                             | Sau         | StreamIO      |
-| Monteverde                        | Help        | Intelligence  |
-| Timelapse                         | Broker      | Jeeves        |
-| Return                            | Intentions  | Manager       |
-| Cascade                           | Soccer      | Access        |
-| Flight                            | Keeper      | Aero          |
-| Blackfield                        | Monitored   | Mailing       |
-| Cicade                            | BoardLight  | Administrator |
-| Escape                            | Networked   | Certified     |
-|                                   | CozyHosting |               |
-|                                   | Editorial   |               |
-|                                   | Help        |               |
-|                                   | Magic       |               |
-|                                   | Pandora     |               |
-|                                   | Builder     |               |
-|                                   | LinkVortex  |               |
-|                                   | Usage       |               |
+| Active Directory                  | Linux                                 | Windows       |
+| :-------------------------------- | :------------------------------------ | :------------ |
+| <a href="/htb-active/">Active</a> | <a href="/htb-busqueda/">Busqueda</a> | Servmon       |
+| Forest                            | UpDown                                | Support       |
+| Sauna                             | Sau                                   | StreamIO      |
+| Monteverde                        | Help                                  | Intelligence  |
+| Timelapse                         | Broker                                | Jeeves        |
+| Return                            | Intentions                            | Manager       |
+| Cascade                           | Soccer                                | Access        |
+| Flight                            | Keeper                                | Aero          |
+| Blackfield                        | Monitored                             | Mailing       |
+| Cicade                            | BoardLight                            | Administrator |
+| Escape                            | Networked                             | Certified     |
+|                                   | CozyHosting                           |               |
+|                                   | Editorial                             |               |
+|                                   | Help                                  |               |
+|                                   | Magic                                 |               |
+|                                   | Pandora                               |               |
+|                                   | Builder                               |               |
+|                                   | LinkVortex                            |               |
+|                                   | Usage                                 |               |
 
 ### OSCP (PWK v2) (PEN-200 2022)
 #### Hack The Box
