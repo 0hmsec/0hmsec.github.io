@@ -1,6 +1,6 @@
 ---
 layout: tags
-title: タグ / TAGS
+title: タグ
 icon: fas fa-tags
 order: 3
 lang: ja
