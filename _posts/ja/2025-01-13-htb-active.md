@@ -15,9 +15,10 @@ _Active Machine info card_
 
 #### マシン情報テーブル
 
+| [Hack The BoxでActiveを攻略しよう！](https://app.hackthebox.com/machines/148)  |
 | 難易度         | 簡単   |
 | OS   | Windows       |
-| 公開日     | 2018年7月29日  |
+| 公開日     | 2018年07月29日  |
 | マシンの状態| 引退|
 
 #### 今回解くマシンは？
