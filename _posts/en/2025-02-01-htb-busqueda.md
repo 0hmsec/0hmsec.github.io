@@ -44,7 +44,7 @@ The summary of the attack steps according to MITRE ATT&CK guidelines is as follo
 As always, I will use `nmap` to run the port scan against all the 65535 ports to find the open ones.
 
 ```bash
-0hmsec@kali:-$ 0hmsec@kali:~$ nmap -p- --min-rate 10000 10.10.11.208
+0hmsec@kali:-$ nmap -p- --min-rate 10000 10.10.11.208
 ```
 ```bash
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-02-01 17:24 IST

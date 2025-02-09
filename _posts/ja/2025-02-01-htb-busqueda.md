@@ -47,7 +47,7 @@ MITRE ATT&CKに照らした攻略手順の概要は以下の通りです。
 いつものようにまず、`nmap`を使用して、全のTCPポートをスキャンを実行し、開いているポートを見つけていきます。
 
 ```bash
-0hmsec@kali:-$ 0hmsec@kali:~$ nmap -p- --min-rate 10000 10.10.11.208
+0hmsec@kali:-$ nmap -p- --min-rate 10000 10.10.11.208
 ```
 ```bash
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-02-01 17:24 IST
